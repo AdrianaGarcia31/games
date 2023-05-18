@@ -1,3 +1,5 @@
+#backtracking algorithm
+
 board = [
         [7, 8, 0, 4, 0, 0, 1, 2, 0],
         [6, 0, 0, 0, 7, 5, 0, 0, 9],
@@ -10,14 +12,25 @@ board = [
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ]
 
+#recursive function
+
 def solve(bo):
     empty = find_empty(bo)
     if not empty :
         return True
     else:
         row, col = empty
+
     for i in range(1,10):
-            valida = valid(bo, i , empty)
+        if valid(bo, i , (row, col)):
+            bo[row][col] = i
+
+            if solve(bo):
+                return True
+            
+            bo[row][col] = 0
+    
+    return False
 
                 
 
@@ -64,4 +77,7 @@ def valid(bo, num, pos):
     
     return True
 
+print_board(board)
+solve(board)
+print('\n')
 print_board(board)
